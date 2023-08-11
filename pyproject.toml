@@ -1,3 +1,7 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
+
 [tool.black]
 target-version = ["py38"]
 
@@ -14,7 +18,7 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "License :: OSI Approved :: MIT License",
-  "Operating System :: OS Independent",
+  "Operating System :: OS Independent"
 ]
 description = "Encapsulate Python variables in scopes"
 documentation = "https://eertmans.be/varscope"
@@ -65,9 +69,7 @@ pytest = "^7.3.1"
 pytest-cov = "^4.1.0"
 
 [tool.ruff]
+ignore = [
+  "E501"
+]
 target-version = "py38"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
