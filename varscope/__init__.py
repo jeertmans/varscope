@@ -48,25 +48,23 @@ class Scope:
         current_scope = current_frame.f_locals.copy()  # type: ignore[union-attr]
         initial_scope = self.__initial_scope
 
+        f_locals = current_frame.f_locals  # type: ignore[union-attr]
+
         for key in current_scope.keys():
             if key in self._keep:
                 continue
             elif key in initial_scope:
-                current_frame.f_locals[key] = initial_scope[key]  # type: ignore[union-attr]
+                f_locals[key] = initial_scope[key]  # type: ignore[union-attr]
             else:
-                current_frame.f_locals.pop(key)  # type: ignore[union-attr]
-
-            ctypes.pythonapi.PyFrame_LocalsToFast(
-                ctypes.py_object(current_frame), ctypes.c_int(1)
-            )
+                f_locals.pop(key)  # type: ignore[union-attr]
 
         for key in self._delete:
             if key not in self._keep:
-                current_frame.f_locals.pop(key)  # type: ignore[union-attr]
+                f_locals.pop(key)  # type: ignore[union-attr]
 
-            ctypes.pythonapi.PyFrame_LocalsToFast(
-                ctypes.py_object(current_frame), ctypes.c_int(1)
-            )
+        ctypes.pythonapi.PyFrame_LocalsToFast(
+            ctypes.py_object(current_frame), ctypes.c_int(1)
+        )
 
         del current_frame
 
