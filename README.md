@@ -1,13 +1,13 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jeertmans/varscope/main/static/logo_dark_transparent.png">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/jeertmans/varscope/main/static/logo_light_transparent.png">
-  <img alt="VarScope Logo" src="https://raw.githubusercontent.com/jeertmans/varscope/main/static/logo.png">
+  <img alt="VarScope Logo" height="256px" align="right" src="https://raw.githubusercontent.com/jeertmans/varscope/main/static/logo.png">
 </picture>
+
+# VarScope
 
 [![Documentation][documentation-badge]][documentation-url]
 [![codecov][codecov-badge]][codecov-url]
-
-# VarScope
 
 Ultra simple module for creating local scopes in Python.
 

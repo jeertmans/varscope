@@ -1,5 +1,5 @@
 """
-A simply pure Python library for creating local scopes.
+A simple Python library for creating local scopes.
 """
 
 
@@ -12,6 +12,8 @@ class Scope:
     """
     Context manager for encapsulating variables in a scope.
 
+    See :func:`scope` for a detailed description.
+
     References
     ----------
 
@@ -19,15 +21,6 @@ class Scope:
     """
 
     def __init__(self, *names: str) -> None:
-        """
-        Creates a new scope that will delete all locals after
-        exiting it.
-
-        Optionally, you can specify variables names from outside the scope
-        that must be deleted too.
-
-        :param names: Variable names.
-        """
         self._delete: Set[str] = set(*names)
         self._keep: Set[str] = set()
 
@@ -67,6 +60,11 @@ class Scope:
         Tells the context manager to keep specific variable names
         after the scope was exited.
 
+        :param names: Variable names to be moved outside the scope.
+
+        Examples
+        --------
+
         >>> from varscope import scope
         >>> with scope() as s:
         ...     a = 1
@@ -75,12 +73,10 @@ class Scope:
         ...
         >>> a
         1
-        >>> try:
-        ...     print(b)
-        ... except NameError:
-        ...     print("b does not exists!")
-        ...
-        b does not exists!
+        >>> b
+        Traceback (most recent call last):
+          File "<stdin>", line 1, in <module>
+        NameError: name 'b' is not defined
         """
         self._keep.update(names)
 
@@ -93,6 +89,15 @@ def scope(*names: str) -> Scope:
     Variables that are created in a given scope will not
     be accessible outside of this scope.
 
+    Optionally, you can specify variable names from outside the scope
+    that must be moved inside. Upon exiting the scope, they will be deleted.
+
+    :param names: Variable names to be moved inside the scope,
+        as they were defined there.
+
+    Examples
+    --------
+
     >>> from varscope import scope
     >>> a = 1
     >>> with scope():
@@ -100,13 +105,10 @@ def scope(*names: str) -> Scope:
     ...
     >>> a
     1
-    >>> try:
-    ...     print(b)
-    ... except NameError:
-    ...     print("b does not exists!")
-    ...
-    b does not exists!
-
+    >>> b
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    NameError: name 'b' is not defined
 
     Variables that are redefined will get their original
     value back, as of when the scope was entered.

@@ -18,9 +18,10 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "License :: OSI Approved :: MIT License",
-  "Operating System :: OS Independent"
+  "Operating System :: OS Independent",
+  "Topic :: Utilities"
 ]
-description = "Encapsulate Python variables in scopes"
+description = "Ultra simple module for creating local scopes in Python"
 documentation = "https://eertmans.be/varscope"
 exclude = ["docs/", "static/"]
 homepage = "https://github.com/jeertmans/varscope"
