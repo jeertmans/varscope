@@ -46,7 +46,7 @@ class Scope:
             elif key in initial_scope:
                 current_frame.f_locals[key] = initial_scope[key]  # type: ignore[union-attr]
             else:
-                current_frame.f_locals.pop(key, None)  # type: ignore[union-attr]
+                current_frame.f_locals.pop(key)  # type: ignore[union-attr]
 
             ctypes.pythonapi.PyFrame_LocalsToFast(
                 ctypes.py_object(current_frame), ctypes.c_int(1)
@@ -54,7 +54,7 @@ class Scope:
 
         for key in self._delete:
             if key not in self._keep:
-                current_frame.f_locals.pop(key, None)  # type: ignore[union-attr]
+                current_frame.f_locals.pop(key)  # type: ignore[union-attr]
 
             ctypes.pythonapi.PyFrame_LocalsToFast(
                 ctypes.py_object(current_frame), ctypes.c_int(1)
@@ -72,12 +72,15 @@ class Scope:
         ...     a = 1
         ...     b = 2
         ...     s.keep("a")
+        ...
         >>> a
         1
-        >>> b
-        Traceback (most recent call last):
-          File "<stdin>", line 1, in <module>
-        NameError: name 'b' is not defined
+        >>> try:
+        ...     print(b)
+        ... except NameError:
+        ...     print("b does not exists!")
+        ...
+        b does not exists!
         """
         self._keep.update(names)
 
@@ -94,12 +97,15 @@ def scope(*names: str) -> Scope:
     >>> a = 1
     >>> with scope():
     ...     b = 2
+    ...
     >>> a
     1
-    >>> b
-    Traceback (most recent call last):
-      File "<stdin>", line 1, in <module>
-    NameError: name 'b' is not defined
+    >>> try:
+    ...     print(b)
+    ... except NameError:
+    ...     print("b does not exists!")
+    ...
+    b does not exists!
 
 
     Variables that are redefined will get their original
@@ -121,6 +127,7 @@ def scope(*names: str) -> Scope:
     >>> d = {}
     >>> with scope():
     ...     d["a"] = 1
+    ...
     >>> d
     {'a': 1}
 
@@ -131,6 +138,7 @@ def scope(*names: str) -> Scope:
     >>> a = 1
     >>> with scope("a"):
     ...     print(a)
+    ...
     1
     >>> a
     Traceback (most recent call last):

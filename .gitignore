@@ -1,4 +1,8 @@
+# Python files
 
-tests/__pycache__/
+__pycache__/
 
-varscope/__pycache__/
+
+# Docs
+
+docs/build/

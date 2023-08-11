@@ -59,4 +59,4 @@ jobs:
 
     - name: Run ByExample
       run: |
-        ff "**py" -e "tests/**.py" README.md | xargs poetry run byexample -l python +timeout=60
+        ff "README.md" "**.py" -e "tests/**.py" README.md | xargs poetry run byexample -l python +timeout=60
