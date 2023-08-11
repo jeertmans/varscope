@@ -28,11 +28,6 @@ extensions = [
     "sphinx_autodoc_typehints",
 ]
 
-rst_prolog = """
-.. role:: python(code)
-    :language: python
-"""
-
 typehints_defaults = "comma"
 typehints_use_signature = True
 typehints_use_signature_return = True

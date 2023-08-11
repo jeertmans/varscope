@@ -13,6 +13,6 @@ license
 ```
 
 ```{eval-rst}
-.. automodule:: varscope.scope
+.. automodule:: varscope
     :members: scope, Scope
 ```
