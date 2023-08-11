@@ -1,0 +1,62 @@
+on:
+  pull_request:
+  workflow_dispatch:
+
+name: Test Python code
+
+jobs:
+  pytest:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+        pyversion: ['3.8', '3.9', '3.10', '3.11']
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install Poetry
+      run: pipx install poetry
+
+    - name: Install Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.pyversion }}
+        cache: poetry
+
+    - name: Install package
+      run: |
+        poetry install --with test
+
+    - name: Run Pytest
+      run: |
+        poetry run pytest
+
+  byexample:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install Poetry
+      run: pipx install poetry
+
+    - name: Install Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: poetry
+
+    - name: Install package
+      run: |
+        poetry install --with test
+
+    - name: Install FilesFinder
+      uses: taiki-e/install-action@v2
+      with:
+        tool: filesfinder@latest
+
+    - name: Run ByExample
+      run: |
+        ff "**py" -e "tests/**.py" README.md | xargs poetry run byexample -l python +timeout=60
