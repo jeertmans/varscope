@@ -98,7 +98,7 @@ class Scope:
 
 def scope(*names: str) -> Scope:
     """
-    Returns a context manager to encaplusate all the
+    Returns a context manager to encapsulate all the
     variables, making them inaccessible afterward.
 
     Variables that are created in a given scope will not
