@@ -13,7 +13,7 @@ class Scope:
     1
     >>> b
     NameError
-    
+
     Variables that are redefined will get their original
     value back, as of when the scope was entered.
 
@@ -36,10 +36,11 @@ class Scope:
     >>> d
     {"a": 1}
     """
+
     def __init__(self):
         self.initial_scope = None
         self._keep = set()
-        
+
     def __enter__(self):
         self.__initial_scope = globals().copy()
         return self
@@ -55,7 +56,7 @@ class Scope:
                 globals()[key] = value
             else:
                 del globals()[key]
-                
+
     def keep(self, *objects: object) -> None:
         """
         Tells the context manager to keep specific objects
