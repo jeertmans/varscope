@@ -45,7 +45,7 @@ jobs:
 
     - name: Install package
       run: |
-        poetry install --with docs,github-action
+        poetry install --with docs
 
     - name: Build docs
       run: cd docs && poetry run make html
