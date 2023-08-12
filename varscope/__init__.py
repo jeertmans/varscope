@@ -161,3 +161,9 @@ def scope(*names: str) -> Scope:
     NameError: name 'a' is not defined
     """
     return Scope(*names)
+
+
+try:
+    from .ipython_magic import scope as _
+except ImportError:
+    pass
