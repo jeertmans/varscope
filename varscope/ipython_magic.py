@@ -11,15 +11,13 @@ IPython magic, automatically registered with importing ``varscope`` in a Noteboo
 """
 
 import argparse
-
-from typing import Dict, Any
+from typing import Any, Dict
 
 from IPython.core.magic import needs_local_scope, register_cell_magic
 
 parser = argparse.ArgumentParser(
-        prog="scope",
-        description="Create per-cell scopes",
-        add_help=False)
+    prog="scope", description="Create per-cell scopes", add_help=False
+)
 
 parser.add_argument("--move", metavar="NAME", default=[], nargs="+")
 parser.add_argument("--keep", metavar="NAME", default=[], nargs="+")
