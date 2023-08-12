@@ -165,6 +165,7 @@ def scope(*names: str) -> Scope:
 
 try:
     from .ipython_magic import magic
+
     del magic
 except ImportError:
     pass
