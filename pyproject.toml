@@ -37,6 +37,7 @@ version = "0.1.1"
 
 [tool.poetry.dependencies]
 python = "^3.8"
+ipython = {version = ">=8", optional = true}
 
 [tool.poetry.group.dev]
 optional = true
