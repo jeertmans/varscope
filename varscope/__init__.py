@@ -1,7 +1,7 @@
 """
 A simple Python library for creating local scopes.
 
-This module consist of a single function
+This module consists of a single function
 :func:`scope` that creates :class:`Scope` context manager, to be used
 with Python's :code:`with` statement:
 
