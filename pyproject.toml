@@ -36,6 +36,7 @@ repository = "https://github.com/jeertmans/varscope"
 version = "0.1.1"
 
 [tool.poetry.dependencies]
+ipython = {version = ">=8", optional = true}
 python = "^3.8"
 
 [tool.poetry.group.dev]
